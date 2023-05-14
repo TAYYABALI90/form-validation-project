@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <title>Document</title>
+    <style>
+
+        body {
+            background-color: #12B0E8;
+        }
+
+        .success input {
+            border-color: green;
+        }
+
+        .error input {
+            border-color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container my-5 py-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-4">
+                <form action="" id="form" class="bg-light p-4 ">
+                    <div class="d-grid gap-2">
+                        <div class="bg-dark p-2">
+                            <h2 class="text-center text-white text-uppercase">Registration Form</h2>
+                        </div>
+                        <div>
+                            <label for="">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Write Your Username">
+                            <small id="error1"></small>
+                        </div>
+                        <div>
+                            <label for="">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Write Your Email Address">
+                            <small id="error2"></small>
+                        </div>
+                        <div>
+                            <label for="">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Write Your Password">
+                            <small id="error3"></small>
+                        </div>
+                        <div>
+                            <label for="">Confirm Password</label>
+                            <input type="password" class="form-control" id="cpassword"
+                                placeholder="Write Your Confirm Password">
+                            <small id="error4"></small>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-warning w-100 my-2">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        let form = document.querySelector("#form");
+
+        let username = document.querySelector("#username");
+
+        let email = document.querySelector("#email");
+
+        let password = document.querySelector("#password");
+
+        let cPassword = document.querySelector("#cpassword");
+
+        let formCon = document.querySelector(".form-control");
+
+        let errorOne = document.querySelector("#error1");
+
+        let errorTwo = document.querySelector("#error2");
+
+        let errorThree = document.querySelector("#error3");
+
+        let errorFour = document.querySelector("#error4");
+
+        let setErrorMsg = (inputElement) => {
+
+            let formCon = inputElement.parentElement;
+
+            formCon.className = "error";
+
+        };
+
+        let setSuccessMsg = (inputElement) => {
+
+            let formCon = inputElement.parentElement;
+
+            formCon.className = "success";
+
+        };
+
+        form.addEventListener("submit", (event) => {
+
+            event.preventDefault();
+
+            let usernameValue = username.value;
+
+            let emailValue = email.value;
+
+            let passwordValue = password.value;
+
+            let confirmPassword = cPassword.value;
+
+            if (usernameValue !== "") {
+
+                if (usernameValue.length >= 8) {
+
+                    setSuccessMsg(username);
+
+                    errorOne.textContent = "Verified !";
+
+                } else {
+
+                    setErrorMsg(username);
+
+                    errorOne.textContent = "Username Must Be Minimum Of 8 Characters";
+
+                };
+
+            } else {
+
+                setErrorMsg(username);
+
+                errorOne.textContent = "Username Cannot Be Empty";
+
+            };
+
+            let emailCheck = /^[A-Za-z \d._]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/;
+
+            if (emailValue !== "") {
+
+                if (emailCheck.test(emailValue)) {
+
+                    setSuccessMsg(email);
+
+                    errorTwo.textContent = "Verified !";
+
+                } else {
+
+                    setErrorMsg(email);
+
+                    errorTwo.textContent = "Not Verified";
+
+                };
+
+            } else {
+
+                setErrorMsg(email);
+
+                errorTwo.textContent = "Email Cannot Be Empty";
+
+            };
+
+            if (passwordValue !== "") {
+
+                if (passwordValue.length >= 12) {
+
+                    setSuccessMsg(password);
+
+                    errorThree.textContent = "Verified !";
+
+                } else {
+
+                    setErrorMsg(password);
+
+                    errorThree.textContent = "Password Must Be Minimum Of 8 Characters";
+
+                };
+
+            } else {
+
+                setErrorMsg(password);
+
+                errorThree.textContent = "Password Cannot Be Empty";
+
+            };
+
+            if (confirmPassword !== "") {
+
+                if (confirmPassword != passwordValue) {
+
+                    setErrorMsg(cPassword);
+
+                    errorFour.textContent = "Your Password Do Not Match";
+
+                } else {
+
+                    setSuccessMsg(cPassword);
+
+                    errorFour.textContent = "Verified !";
+
+                };
+
+            } else {
+
+                setErrorMsg(cPassword);
+
+                errorFour.textContent = "Confirm Password Cannot Be Empty";
+
+            };
+
+        });
+    </script>
+</body>
+
+</html>
